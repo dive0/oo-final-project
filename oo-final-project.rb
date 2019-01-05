@@ -54,3 +54,14 @@ def start
 end
 
 start
+loop do
+	puts "Do you want to keep playing?"
+	answer = gets.chomp
+	if answer == "yes"
+		start
+	elsif answer == "no"
+		break
+	else
+		redo 
+	end
+end
