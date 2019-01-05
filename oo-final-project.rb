@@ -26,11 +26,11 @@ class Material
     
     def broken(tool_condition)
         if @material_health == 0 && tool_condition.tool_health == 0
-            puts "Both #{@material_name} and #{tool_condition.tool_name} is broken at the same time!"
+            puts "Both #{@material_name} and #{tool_condition.tool_name} break at the same time!"
         elsif @material_health == 0
-            puts "The #{@material_name} is broken first!"
+            puts "The #{@material_name} breaks first!"
         elsif tool_condition.tool_health == 0
-            puts "Your #{tool_condition.tool_name} is broken first!"
+            puts "Your #{tool_condition.tool_name} breaks first!"
         else
             puts "Nothing breaks. Your #{tool_condition.tool_name}'s health is now #{tool_condition.tool_health}. The #{@material_name}'s health is now #{@material_health}"
         end
@@ -38,7 +38,7 @@ class Material
 end
 
 def start
-    puts "This is a game where you create a tool and a object you want to destroy. You will choose how many times you want to hit the object to see which one breaks first, none of them breaks, or both breaks at the same time. Your tool will have 100 health and you get to choose the heath of the object."
+    puts "This is a game where you create a tool and an object you want to destroy. You will choose how many times you want to hit the object to see which one breaks first, none of them breaks, or both breaks at the same time. Your tool will have 100 health and you get to choose the heath of the object."
     puts "What tool will you use?"
     name_of_tool = gets.chomp
     puts "What object will you hit?"
