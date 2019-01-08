@@ -27,12 +27,12 @@ class Item
     def broken(tool_condition)
         if @item_health == 0 && tool_condition.tool_health == 0
             puts "Both #{@item_name} and #{tool_condition.tool_name} break at the same time!"
-        elsif @item_health == 0
+        elsif @item_health <= 0
             puts "The #{@item_name} breaks first!"
-        elsif tool_condition.tool_health == 0
+        elsif tool_condition.tool_health <= 0
             puts "Your #{tool_condition.tool_name} breaks first!"
         else
-            puts "Nothing breaks. \nYour #{tool_condition.tool_name}'s health is now #{tool_condition.tool_health}. \nThe #{@item_name}'s health is now #{@item_health}"
+            puts "Nothing breaks. \nYour #{tool_condition.tool_name}'s health is now #{tool_condition.tool_health}. \nThe #{@item_name}'s health is now #{@item_health}."
         end
     end
 end
@@ -43,12 +43,20 @@ def start
     name_of_tool = gets.chomp
     puts "What is the item you'll hit?"
     name_of_item = gets.chomp
-    puts "What is the health of the #{name_of_item}?"
-    health_of_item = gets.chomp.to_i
-    puts "How many times will you hit?"
-    number_of_hit = gets.chomp.to_i
-    tool = Tool.new(name_of_tool, number_of_hit)
-    item = Item.new(name_of_item, health_of_item)
+    puts "What is the health of the #{name_of_item}? (Enter a number greater than 0)"
+    health_of_item = gets.chomp
+    until health_of_item =~ /^-?[0-9]+$/ && health_of_item.to_i > 0
+      puts "Reenter health"
+      health_of_item = gets.chomp
+    end
+    puts "How many times will you hit? (Enter a number no less than 0)"
+    number_of_hit = gets.chomp
+    until number_of_hit =~ /^-?[0-9]+$/ && number_of_hit.to_i >= 0
+      puts "Reenter the number of hits"
+      number_of_hit = gets.chomp
+    end
+    tool = Tool.new(name_of_tool, number_of_hit.to_i)
+    item = Item.new(name_of_item, health_of_item.to_i)
     tool.damage(item)
     item.broken(tool)
 end
